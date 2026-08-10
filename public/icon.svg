@@ -1,0 +1,53 @@
+<!--
+  RubyRepo mark: a cut ruby with a flow running underneath.
+
+  Drawn on a 16x16 grid, every cell four units wide, so each square lands on a
+  whole pixel at 16, 32, 64, 128 and 256. `shape-rendering="crispEdges"` keeps
+  the renderer from smoothing the steps back into a blur, which is the one way
+  pixel art stops being pixel art.
+
+  The silhouette is symmetric about x=32 — the first draft was not, and two rows
+  sitting half a cell off made the stone look like it was leaning. The lighting
+  is not symmetric, and should not be: three reds instead of one, lit from the
+  upper left, because a flat gem reads as a red blob at 32 pixels and the facets
+  are what say "cut stone" once the shape is too small for outlines.
+-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="512" height="512"
+     role="img" aria-label="RubyRepo" shape-rendering="crispEdges">
+  <rect width="64" height="64" rx="12" fill="#0f1f19"/>
+
+  <!-- Table and the faces that catch the light. -->
+  <g fill="#ff7d9c">
+    <rect x="24" y="12" width="16" height="4"/>
+    <rect x="20" y="16" width="12" height="4"/>
+    <rect x="12" y="20" width="12" height="4"/>
+  </g>
+
+  <!-- The bulk of the stone. -->
+  <g fill="#e0355a">
+    <rect x="32" y="16" width="12" height="4"/>
+    <rect x="24" y="20" width="16" height="4"/>
+    <rect x="16" y="24" width="16" height="4"/>
+    <rect x="20" y="28" width="12" height="4"/>
+    <rect x="24" y="32" width="8"  height="4"/>
+  </g>
+
+  <!-- The faces turned away, and the point. -->
+  <g fill="#8f1637">
+    <rect x="40" y="20" width="12" height="4"/>
+    <rect x="32" y="24" width="16" height="4"/>
+    <rect x="32" y="28" width="12" height="4"/>
+    <rect x="32" y="32" width="8"  height="4"/>
+    <rect x="28" y="36" width="8"  height="4"/>
+  </g>
+
+  <!-- Flow: a staggered current beneath the stone. Two rows, offset, so it
+       reads as movement rather than as an underline. -->
+  <g fill="#35d08a">
+    <rect x="16" y="44" width="12" height="4"/>
+    <rect x="36" y="44" width="12" height="4"/>
+    <rect x="8"  y="48" width="8"  height="4"/>
+    <rect x="28" y="48" width="8"  height="4"/>
+    <rect x="48" y="48" width="8"  height="4"/>
+  </g>
+</svg>

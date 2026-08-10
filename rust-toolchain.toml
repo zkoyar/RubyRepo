@@ -1,0 +1,8 @@
+# Fissa il canale, non l'ABI: una tripla completa qui renderebbe il progetto
+# incompilabile fuori da Windows. Su Windows i test Rust richiedono comunque
+# l'ABI MSVC — con GNU l'eseguibile di test non parte, perché tauri-build
+# inietta il manifest Common-Controls 6 solo nei target `bin` — e a sceglierla
+# pensa `npm run test:rust`, non questo file.
+[toolchain]
+channel = "stable"
+components = ["rustfmt", "clippy"]

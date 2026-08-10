@@ -1,0 +1,51 @@
+[package]
+name = "rubyrepo"
+version = "1.0.0"
+description = "A safe, cross-platform dashboard for multiple local Git repositories"
+authors = ["RubyRepo contributors"]
+edition = "2021"
+license = "GPL-3.0-or-later"
+readme = "../README.md"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[lib]
+# Desktop-only crate. Additional static/cdylib outputs are only needed if mobile
+# targets are added later.
+name = "rubyrepo_lib"
+crate-type = ["rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+tauri = { version = "2", features = [] }
+tauri-plugin-opener = "2"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+tauri-plugin-dialog = "2.7.2"
+walkdir = "2.5.0"
+keyring = "4.1.6"
+reqwest = { version = "0.13.4", default-features = false, features = ["form", "json", "rustls", "system-proxy"] }
+tokio = { version = "1", features = ["rt", "sync"] }
+url = "2"
+getrandom = "0.4"
+zeroize = "1"
+tauri-plugin-log = "2.9.0"
+log = "0.4.33"
+tauri-plugin-window-state = "2.4.1"
+
+# Il profilo di release usava i valori predefiniti di Cargo: nessun LTO,
+# sedici unita di codegen, panic con unwinding e simboli non rimossi. Per un
+# binario che viene distribuito conta sia la dimensione sia il fatto di non
+# spedire la tabella dei simboli.
+[profile.release]
+codegen-units = 1
+lto = true
+opt-level = "s"
+panic = "abort"
+strip = true
+
+[dev-dependencies]
+tokio = { version = "1", features = ["macros", "rt"] }
+wiremock = "0.6.5"

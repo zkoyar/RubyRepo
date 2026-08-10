@@ -1,0 +1,13 @@
+* text=auto
+.gitattributes text eol=lf
+.gitignore text eol=lf
+
+# Keep cross-platform scripts and configuration portable on Windows checkouts.
+*.sh text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+
+# Binary application assets must never be line-ending normalized.
+*.png binary
+*.ico binary
+*.icns binary

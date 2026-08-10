@@ -1,0 +1,27 @@
+#!/bin/sh
+# Runs the whole verification pipeline before every commit.
+#
+# Nothing else enforces these checks on a working copy: this hook is the one
+# place where they are imposed rather than remembered. To skip it knowingly:
+# git commit --no-verify
+#
+# On Windows the Rust toolchain must be MSVC: with GNU the test executables do
+# not start. See "The MSVC toolchain on Windows" in the README.
+#
+# The hook used to skip commits that did not touch `multi-repo-manager/`, back
+# when the app lived in a subdirectory. That filter is gone, and removing it was
+# not optional: left in place after the flattening it would have matched nothing,
+# so `grep -q` would have failed, the hook would have exited 0 every time, and
+# verification would have quietly stopped running — with no error and no sign.
+
+set -e
+
+cd "$(git rev-parse --show-toplevel)"
+
+echo "pre-commit: verifying (git commit --no-verify to skip)"
+
+if ! npm run verify; then
+    echo
+    echo "pre-commit: verification failed, commit aborted." >&2
+    exit 1
+fi

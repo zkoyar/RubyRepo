@@ -1,0 +1,60 @@
+{
+  "name": "rubyrepo",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "typecheck": "tsc --noEmit -p tsconfig.json && tsc --noEmit -p tsconfig.node.json",
+    "build": "npm run typecheck && vite build",
+    "preview": "vite preview",
+    "tauri": "node scripts/windows-msvc.mjs tauri",
+    "lint": "eslint . --max-warnings 0",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "verify": "npm run lint && npm run check:css && npm run check:messages && npm run check:text && npm run test:coverage && npm run build && npm run format:rust:check && npm run check:rust && npm run clippy:rust && npm run test:rust",
+    "test:coverage": "vitest run --coverage",
+    "format:rust:check": "node scripts/windows-msvc.mjs cargo fmt --manifest-path src-tauri/Cargo.toml --all -- --check",
+    "check:rust": "node scripts/windows-msvc.mjs cargo check --locked --all-targets --manifest-path src-tauri/Cargo.toml",
+    "clippy:rust": "node scripts/windows-msvc.mjs cargo clippy --locked --all-targets --manifest-path src-tauri/Cargo.toml -- -D warnings",
+    "test:rust": "node scripts/windows-msvc.mjs cargo test --locked --manifest-path src-tauri/Cargo.toml",
+    "check:css": "node scripts/check-css-classes.mjs",
+    "check:messages": "node scripts/check-message-ids.mjs",
+    "check:text": "node scripts/check-untranslated-text.mjs"
+  },
+  "dependencies": {
+    "@tauri-apps/api": "^2",
+    "@tauri-apps/plugin-dialog": "^2.7.2",
+    "@tauri-apps/plugin-opener": "^2",
+    "lucide-react": "^1.31.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@tauri-apps/cli": "^2",
+    "@testing-library/jest-dom": "^7.0.1",
+    "@testing-library/react": "^16.3.2",
+    "@testing-library/user-event": "^14.6.3",
+    "@types/node": "^22.20.0",
+    "@types/react": "^19.1.8",
+    "@types/react-dom": "^19.1.6",
+    "@vitejs/plugin-react": "^6.0.5",
+    "@vitest/coverage-v8": "^4.1.10",
+    "eslint": "^10.8.1",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "eslint-plugin-react-refresh": "^0.5.4",
+    "globals": "^17.9.0",
+    "jsdom": "^30.0.1",
+    "typescript": "~6.0.3",
+    "typescript-eslint": "^8.66.0",
+    "vite": "^8.2.1",
+    "vitest": "^4.1.10"
+  },
+  "description": "Dashboard desktop per controllare e sincronizzare piu repository Git locali",
+  "license": "GPL-3.0-or-later",
+  "author": "Salvatore Fazio",
+  "engines": {
+    "node": "^22.22.2 || ^24.15.0 || >=26.0.0"
+  }
+}
